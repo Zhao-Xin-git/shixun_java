@@ -20,10 +20,10 @@ import com.chinasoft.pojo.User;
 
 public class UserMapperTest {
 	
-	//È«¾Ö±äÁ¿
+	//éã„¥çœ¬é™æ©€å™º
 	public SqlSessionFactory factory = SessionUtil.getSession();
 	
-	//ĞèÒªÊ±´´½¨session
+	//é—‡ï¿½ç‘•ä½¹æ¤‚é’æ¶˜ç¼“session
 	@Test
 	public void addUserNoPar() {
 		SqlSession session = factory.openSession();
@@ -49,7 +49,7 @@ public class UserMapperTest {
 		User user = mapper.selectOneUser(5);
 		System.out.println(user);
 		
-		//Ò»¼¶»º´æ
+		//æ¶“ï¿½ç»¾Ñ…ç´¦ç€›ï¿½
 		/*
 		session.clearCache();
 		User user1 = mapper.selectOneUser(5);
@@ -78,7 +78,7 @@ public class UserMapperTest {
 		System.out.println(user1);
 		session.close();
 	}
-	//JunitÆô¶¯²âÊÔ
+	//Junitéšîˆšå§©å¨´å¬­ç˜¯
 	@Test
 	public void selectOrderBy() {
 		SqlSession session = factory.openSession();
@@ -100,8 +100,8 @@ public class UserMapperTest {
 	
 	}
 	
-	//¶¯Ì¬sql_foreach
-	//ÓÃid·¶Î§²éÕÒuser
+	//é”ã„¦ï¿½ä¹»ql_foreach
+	//é¢â•¥dé‘¼å†¨æ´¿éŒãƒ¦å£˜user
 	@Test
 	public void findUsersWithId(){
 		SqlSession session = factory.openSession();
@@ -116,25 +116,25 @@ public class UserMapperTest {
 			}
 	}
 	
-	//·ÖÒ³¹¦ÄÜ
+	//é’å—›ã€‰é”ç†»å…˜
 	@Test
 	public void getAllPage() throws IOException {
 		UserDao userDao = new UserDao();
-        //Õâ¸ö´«½øÀ´µÄµÚÒ»¸ö²ÎÊıÊÇÄãÒªÏÔÊ¾µÚ¼¸Ò³µÄÊı¾İ£¬µÚ¶şÊÇÄãĞèÒªÃ»Ò³ÏÔÊ¾¼¸Ìõ¼ÇÂ¼
+        //æ©æ¬é‡œæµ¼çŠºç¹˜é‰ãƒ§æ®‘ç»—îƒ¿ç«´æ¶“î„å¼¬éç‰ˆæ§¸æµ£çŠºî›¦é„å‰§ãšç»—î„€åš‘æ¤¤ç”µæ®‘éç‰ˆåµé”›å²€îƒ‡æµœå±¾æ§¸æµ£çŠ»æ¸¶ç‘•ä½¹ç—…æ¤¤å«æ¨‰ç»€å“„åš‘é‰Â¤î†‡è¤°ï¿½
         List<User> users = userDao.getAll(2, 3);
         for (User user : users) {
             System.out.println(user.toString());
         }
 	}
 	
-	//¶¯Ì¬Ìí¼ÓÓÃ»§
+	//é”ã„¦ï¿½ä½¹åŠé”çŠµæ•¤é´ï¿½
 	@Test
 	public void addUserDynamic() {
 		SqlSession session = factory.openSession();
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		User user = new User();
 		Scanner in=new Scanner(System.in);
-		System.out.println("ÇëÊäÈëÓÃ»§ĞÅÏ¢£¬ÓÃ¶ººÅ¸ô¿ª£º");
+		System.out.println("ç’‡ç–¯ç·­éãƒ§æ•¤é´èœ‚ä¿Šé­îˆ¤ç´é¢ã„©ï¿½æ¥€å½¿é—…æ–¿ç´‘é”›ï¿½");
 		String s=in.nextLine();
 		String[] userInfom = s.split(",");
 		user.setUsername(userInfom[0]);
@@ -154,7 +154,10 @@ public class UserMapperTest {
 		//new UserMapperTest().selectLogin();
 		//new UserMapperTest().selectOrderBy();
 		new UserMapperTest().addUserDynamic();
+
 		System.out.println("777");
+		System.out.println("è¾¾æˆå…±è¯†");
+
 	}
 	
 	}		

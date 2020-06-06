@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.chinasoft.mapper.UserMapper">
+
+  <insert id="addUserNoPar">
+      insert into user(username,password) values("sichuan","888888");
+  </insert>
+  
+   <!-- 带参数的添加 -->
+  <insert id="addUserByPar" parameterType="com.chinasoft.pojo.User">
+  insert into user(username,password,phone,address,email) 
+  values(#{username},#{password},#{phone},#{address},#{email});
+  </insert>
+  
+  <!-- 查询一个用户 -->
+  <select id="selectOneUser" resultType="com.chinasoft.pojo.User" parameterType="int">
+    select * from user where id = #{id};
+  </select>
+  
+    <!-- 登陆 -->
+  <select id="selectLogin" resultType="User" parameterType="User">
+    select * from user where username = #{username} and password = #{password};
+  </select>
+  
+  <!-- 根据字段排序 -->
+  <select id="selectOrderBy" resultType="User" parameterType="string">
+      select  * from user order by ${column}
+  </select>
+  
+  <!-- 动态sql_if -->
+  <select id="findUserWith_if"
+     resultType="user"
+     parameterType="user">
+  SELECT * FROM user
+  WHERE username = #{username}
+  <if test="password != null">
+    AND password = #{password}
+  </if>
+</select>
+
+<!-- 动态sql_foreach -->
+<select id="findUsersWithId" parameterType="list" resultType="user">
+  SELECT *
+  FROM user u
+  WHERE ID in
+  <foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+  </foreach>
+</select>
+
+<!-- 分页功能 -->
+  <select id="getAllMap" resultType="User" parameterType="Map">
+        SELECT * FROM user limit #{startIndex},#{pageSize}
+  </select>
+
+<!-- 动态添加用户 -->
+  <insert id="addUserDynamic" parameterType="user" >
+         insert into user <include refid="addusers" />
+    </insert >
+    <sql id="addusers">
+         <set >
+              <if test= "username !=null" >username=#{username},password=#{password},phone=#{phone},address=#{address},email=#{email}</if >
+          </set>
+    </sql >
+  </mapper>

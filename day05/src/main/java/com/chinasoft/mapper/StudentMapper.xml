@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.mapper.StudentMapper">
+
+<!-- 结果集映射 -->
+ <!--  取别名的方式
+ <select id="SelectAllStudent" resultType="student">
+    select id,username as user,password as pwd,
+     	phone,
+     	address,
+     	email,
+     	c_id as cid
+    from student
+ </select>
+ -->
+ <!-- 使用结果映射 -->
+ <select id="selectAllStudent" resultMap="AllStudent">
+     select * from student
+ </select>
+ 
+ <resultMap type="student" id="AllStudent">
+      <result column="username"  property="user"/>
+      <result column="password"  property="pwd"/>
+      <result column="c_id" property="cid"/>
+ </resultMap>
+ 
+ <!-- 高级映射 -->
+ <!-- 查一个学生的所有信息 -->
+ <!-- 多对一关联映射--> 
+ <!-- 嵌套结果查询 -->
+ <select id="selectOneAll" parameterType="int" resultMap="studentOneAll">
+   select * from student,gender where student.c_id=gender.id and student.id = #{id}
+ </select>
+ <resultMap type="student" id="studentOneAll">
+      <result column="username"  property="user"/>
+      <result column="password"  property="pwd"/>
+      <result column="c_id" property="cid"/>
+      <association property="gender" javaType="gender">
+          <id column="c_id" property="id"/>
+          <result column="c_name" property="name"/>
+          <result column="c_teacher" property="teacher"/>
+      </association>
+ </resultMap>
+ <!-- 嵌套select查询——两个select嵌套 -->
+<select id="SelectOAll" resultMap="studentOAll"
+		parameterType="int">
+		select * from student where id =#{id}
+	</select>
+	<resultMap type="student" id="studentOAll">
+		<result column="username" property="user" />
+		<result column="password" property="pwd" />
+		<result column="c_id" property="cid" />
+		<!-- 把c_id列再拿到下一个select里用：column="c_id" -->
+		<association property="gender" column="c_id"
+			select="selectOneGender" />
+	</resultMap>
+	<select id="selectOneGender" resultMap="GenderAll">
+		select * from gender
+		where id=#{c_id}
+	</select>
+	<resultMap type="gender" id="GenderAll">
+		<id column="c_id" property="id" />
+		<result column="c_name" property="name" />
+		<result column="c_teacher" property="teacher" />
+	</resultMap>
+
+<!-- 一对多关联映射 -->
+<!-- 查看某班的所有学生 -->
+<select id="selectStudent" parameterType="int" resultMap="studentOneG">
+   select * from student,gender where student.c_id=gender.id and gender.id = #{id}
+ </select>
+ <resultMap type="student" id="studentOneG">
+      <result column="username"  property="user"/>
+      <result column="password"  property="pwd"/>
+      <result column="c_id" property="cid"/>
+      <association property="gender" javaType="gender">
+          <id column="c_id" property="id"/>
+          <result column="c_name" property="name"/>
+          <result column="c_teacher" property="teacher"/>
+      </association>
+ </resultMap>
+
+
+
+  </mapper>

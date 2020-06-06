@@ -20,10 +20,10 @@ import com.chinasoft.pojo.User;
 
 public class UserMapperTest {
 	
-	//È«¾Ö±äÁ¿
+	//å…¨å±€å˜é‡
 	public SqlSessionFactory factory = SessionUtil.getSession();
 	
-	//ĞèÒªÊ±´´½¨session
+	//éœ€è¦æ—¶åˆ›å»ºsession
 	@Test
 	public void addUserNoPar() {
 		SqlSession session = factory.openSession();
@@ -49,7 +49,7 @@ public class UserMapperTest {
 		User user = mapper.selectOneUser(5);
 		System.out.println(user);
 		
-		//Ò»¼¶»º´æ
+		//ä¸€çº§ç¼“å­˜
 		/*
 		session.clearCache();
 		User user1 = mapper.selectOneUser(5);
@@ -78,7 +78,7 @@ public class UserMapperTest {
 		System.out.println(user1);
 		session.close();
 	}
-	//JunitÆô¶¯²âÊÔ
+	//Junitå¯åŠ¨æµ‹è¯•
 	@Test
 	public void selectOrderBy() {
 		SqlSession session = factory.openSession();
@@ -100,8 +100,8 @@ public class UserMapperTest {
 	
 	}
 	
-	//¶¯Ì¬sql_foreach
-	//ÓÃid·¶Î§²éÕÒuser
+	//åŠ¨æ€sql_foreach
+	//ç”¨idèŒƒå›´æŸ¥æ‰¾user
 	@Test
 	public void findUsersWithId(){
 		SqlSession session = factory.openSession();
@@ -116,25 +116,25 @@ public class UserMapperTest {
 			}
 	}
 	
-	//·ÖÒ³¹¦ÄÜ
+	//åˆ†é¡µåŠŸèƒ½
 	@Test
 	public void getAllPage() throws IOException {
 		UserDao userDao = new UserDao();
-        //Õâ¸ö´«½øÀ´µÄµÚÒ»¸ö²ÎÊıÊÇÄãÒªÏÔÊ¾µÚ¼¸Ò³µÄÊı¾İ£¬µÚ¶şÊÇÄãĞèÒªÃ»Ò³ÏÔÊ¾¼¸Ìõ¼ÇÂ¼
+        //è¿™ä¸ªä¼ è¿›æ¥çš„ç¬¬ä¸€ä¸ªå‚æ•°æ˜¯ä½ è¦æ˜¾ç¤ºç¬¬å‡ é¡µçš„æ•°æ®ï¼Œç¬¬äºŒæ˜¯ä½ éœ€è¦æ²¡é¡µæ˜¾ç¤ºå‡ æ¡è®°å½•
         List<User> users = userDao.getAll(2, 3);
         for (User user : users) {
             System.out.println(user.toString());
         }
 	}
 	
-	//¶¯Ì¬Ìí¼ÓÓÃ»§
+	//åŠ¨æ€æ·»åŠ ç”¨æˆ·
 	@Test
 	public void addUserDynamic() {
 		SqlSession session = factory.openSession();
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		User user = new User();
 		Scanner in=new Scanner(System.in);
-		System.out.println("ÇëÊäÈëÓÃ»§ĞÅÏ¢£¬ÓÃ¶ººÅ¸ô¿ª£º");
+		System.out.println("è¯·è¾“å…¥ç”¨æˆ·ä¿¡æ¯ï¼Œç”¨é€—å·éš”å¼€ï¼š");
 		String s=in.nextLine();
 		String[] userInfom = s.split(",");
 		user.setUsername(userInfom[0]);
@@ -154,6 +154,7 @@ public class UserMapperTest {
 		//new UserMapperTest().selectLogin();
 		//new UserMapperTest().selectOrderBy();
 		new UserMapperTest().addUserDynamic();
+		System.out.println("123456")
 	}
 	
 	}		

@@ -154,6 +154,7 @@ public class UserMapperTest {
 		//new UserMapperTest().selectLogin();
 		//new UserMapperTest().selectOrderBy();
 		new UserMapperTest().addUserDynamic();
+		System.out.println("777");
 	}
 	
 	}		
